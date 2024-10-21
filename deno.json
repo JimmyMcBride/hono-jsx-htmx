@@ -1,0 +1,24 @@
+{
+  "tasks": {
+    "dev": "deno run -A --watch src/server.tsx"
+  },
+  "imports": {
+    "@db/sqlite": "jsr:@db/sqlite@^0.12.0",
+    "@std/assert": "jsr:@std/assert@1",
+    "@std/path": "jsr:@std/path@^1.0.6",
+    "hono": "jsr:@hono/hono@^4.6.5",
+    "@/layout": "./src/routes/layout.tsx"
+  },
+  "compilerOptions": {
+    "lib": ["deno.ns", "deno.unstable", "dom"],
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  },
+  "fmt": {
+    "useTabs": false,
+    "indentWidth": 2,
+    "singleQuote": false,
+    "proseWrap": "always",
+    "lineWidth": 80
+  }
+}
