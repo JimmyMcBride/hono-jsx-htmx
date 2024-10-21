@@ -1,12 +1,11 @@
 import app from "@";
 import { type Context } from "hono";
-import type { FC } from "hono/jsx";
 
 app.get("/button", (c: Context) => {
   return c.html(<p>I'm not a button anymore!</p>);
 });
 
-export const Button: FC = () => {
+export default function Button() {
   return (
     <div>
       <button class="btn primary-solid" hx-get="/button" hx-swap="outerHTML">
@@ -14,4 +13,4 @@ export const Button: FC = () => {
       </button>
     </div>
   );
-};
+}
