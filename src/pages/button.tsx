@@ -1,14 +1,18 @@
 import app from "@";
 import { type Context } from "hono";
 
+let count = 0;
+
 app.get("/button", (c: Context) => {
-  return c.html(<p>I'm not a button anymore!</p>);
+  count++;
+  return c.text(`Time's clicked: ${count}`);
 });
 
 export default function Button() {
   return (
     <div>
-      <button class="btn primary-solid" hx-get="/button" hx-swap="outerHTML">
+      <p class="times-clicked">Time's clicked: {count}</p>
+      <button hx-get="/button" hx-target=".times-clicked" hx-swap="innerHTML">
         Click me
       </button>
     </div>
