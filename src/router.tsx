@@ -1,13 +1,13 @@
 import { Hono } from "hono";
 import { relative, resolve, SEPARATOR } from "@std/path";
 
-export const resolveRoutes = async (app: Hono) => {
-  const routesDir = resolve(Deno.cwd(), "src", "routes");
+export const resolvePages = async (app: Hono) => {
+  const pagesDir = resolve(Deno.cwd(), "src", "pages");
 
   // Traverse all files and directories recursively
-  for await (const entry of walkDir(routesDir)) {
+  for await (const entry of walkDir(pagesDir)) {
     if (entry.endsWith("index.tsx")) {
-      const routePath = buildRoutePath(routesDir, entry);
+      const routePath = buildRoutePath(pagesDir, entry);
       const routeModule = await import(entry);
 
       app.use(routePath, routeModule.default);
@@ -29,7 +29,7 @@ const walkDir = async function* (dir: string): AsyncIterableIterator<string> {
 
 // Function to build the route path based on the relative file path
 const buildRoutePath = (baseDir: string, filePath: string) => {
-  const relativePath = relative(baseDir, filePath); // Get relative path from the base routes dir
+  const relativePath = relative(baseDir, filePath); // Get relative path from the base pages dir
   let routePath = `/${relativePath.replace(".tsx", "")}`; // Remove file extension
 
   // Handle dynamic params (e.g., [slug] -> :slug)
